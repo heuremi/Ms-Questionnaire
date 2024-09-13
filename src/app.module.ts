@@ -2,8 +2,9 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UserModule } from './http/user/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AnswerModule } from './http/answer/answer.module';
+import { QuestionnaireModule } from './http/questionnaire/questionnaire.module';
 
 @Module({
   imports: [
@@ -17,7 +18,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       }),
     }),
 
-    UserModule,
+    AnswerModule,
+
+    QuestionnaireModule,
   ],
   controllers: [AppController],
   providers: [AppService],
