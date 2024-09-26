@@ -13,13 +13,12 @@ import { QuestionnaireModule } from './http/questionnaire/questionnaire.module';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
-        uri: configService.get<string>('MONGODB_URI'),
-        dbName: configService.get<string>('MONGODB_DATABASE'),
+        uri: configService.get<string>('MONGODB_URI') || 'mongodb://root:toor@localhost:27018/',
+        dbName: configService.get<string>('DB_NAME') || 'Ms-Questionnaries',
       }),
     }),
 
     AnswerModule,
-
     QuestionnaireModule,
   ],
   controllers: [AppController],
