@@ -6,12 +6,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Questionnaire } from 'src/schemas/questionnaire.schema';
 import { mongoErrorHandler } from 'src/utils/mongo-error-handler';
 import { MongoError } from 'mongodb';
+import { UpdateResult } from 'mongodb';
 
 @Injectable()
 export class QuestionnaireService {
   constructor(@InjectModel(Questionnaire.name) private questionnaireModel: Model<Questionnaire>) {}
 
-  async create(createQuestionnaireDto: CreateQuestionnaireDto) {
+  async create(createQuestionnaireDto: CreateQuestionnaireDto): Promise<Questionnaire>{
     try {
       return await this.questionnaireModel.create(createQuestionnaireDto);
     } catch (error) {
@@ -21,15 +22,15 @@ export class QuestionnaireService {
     }
   }
 
-  async findAll() {
+  async findAll(): Promise<Questionnaire[]> {
     return await this.questionnaireModel.find().exec();
   }
 
-  async findOne(id: string) {
+  async findOne(id: string): Promise<Questionnaire | null> {
     return await this.questionnaireModel.findById(id).exec();
   }
 
-  async update(id: string, updateQuestionnaireDto: UpdateQuestionnaireDto) {
+  async update(id: string, updateQuestionnaireDto: UpdateQuestionnaireDto): Promise<UpdateResult> {
     try {
       return await this.questionnaireModel.updateOne({ _id: id }, updateQuestionnaireDto);
     } catch (error: unknown) {
@@ -39,7 +40,7 @@ export class QuestionnaireService {
     }
   }
 
-  async remove(id: string) {
-    return await this.questionnaireModel.deleteOne({ _id: id});
-  }
+  async remove(id: string): Promise<{ deletedCount?: number }> {
+    return await this.questionnaireModel.deleteOne({ _id: id }).exec();
+  }  
 }

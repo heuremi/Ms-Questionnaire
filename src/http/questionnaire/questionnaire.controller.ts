@@ -37,7 +37,8 @@ export class QuestionnaireController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string): Promise<{ deletedCount?: number }> {
     return this.questionnaireService.remove(id);
   }
+  
 }

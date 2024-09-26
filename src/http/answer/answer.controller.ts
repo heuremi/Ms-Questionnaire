@@ -37,7 +37,7 @@ export class AnswerController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string): Promise<{ deletedCount?: number }> {
     return this.answerService.remove(id);
   }
 }
