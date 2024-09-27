@@ -11,6 +11,7 @@ import {
 import { AnswerService } from './answer.service';
 import { CreateAnswerDto } from './dto/create-answer.dto';
 import { UpdateAnswerDto } from './dto/update-answer.dto';
+import { AuthGuard } from '../guards/auth.guard';
 
 @Controller('answer')
 export class AnswerController {
@@ -22,6 +23,7 @@ export class AnswerController {
   }
 
   @Get()
+  @UseGuards(AuthGuard)
   async findAll() {
     return this.answerService.findAll();
   }
@@ -37,6 +39,7 @@ export class AnswerController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
   remove(@Param('id') id: string): Promise<{ deletedCount?: number }> {
     return this.answerService.remove(id);
   }
