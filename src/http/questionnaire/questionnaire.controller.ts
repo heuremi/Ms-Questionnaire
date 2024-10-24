@@ -35,8 +35,12 @@ export class QuestionnaireController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateQuestionnaireDto: UpdateQuestionnaireDto) {
-    return this.questionnaireService.update(id, updateQuestionnaireDto);
+  async update(@Param('id') id: string, @Body() updateQuestionnaireDto: UpdateQuestionnaireDto) {
+    try {
+      return await this.questionnaireService.update(id, updateQuestionnaireDto);
+    } catch (error) {
+      throw new Error(`Error al actualizar el cuestionario con ID: ${id}`);
+    }
   }
 
   @Delete(':id')
@@ -44,5 +48,4 @@ export class QuestionnaireController {
   remove(@Param('id') id: string): Promise<{ deletedCount?: number }> {
     return this.questionnaireService.remove(id);
   }
-  
 }

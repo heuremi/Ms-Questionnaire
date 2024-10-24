@@ -1,8 +1,13 @@
-import { IsNotEmpty, IsOptional } from 'class-validator';
-export class CreateQuestionnaireDto {
-    @IsNotEmpty()
-    name?: string;
+import { IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
+import { SectionDto } from './section.dto';
 
-    @IsOptional()
-    descripcion?: string;
+export class CreateQuestionnaireDto {
+  @IsNotEmpty()
+  @IsString()
+  name?: string;
+
+  @ValidateNested({ each: true })
+  @Type(() => SectionDto)
+  sections?: SectionDto[];
 }
