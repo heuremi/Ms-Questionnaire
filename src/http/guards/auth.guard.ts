@@ -16,6 +16,10 @@ export class AuthGuard implements CanActivate {
     try {
       const request = context.switchToHttp().getRequest();
       const token = request.headers['authorization']?.split(' ')[1];
+      if (!token) {
+        throw new UnauthorizedException('Token not found');
+      }
+      
       const response = await lastValueFrom(
         this.httpService.get(
           `${this.configService.get<string>('MS-IAM')}/check`,
@@ -23,7 +27,8 @@ export class AuthGuard implements CanActivate {
         ),
       );
       return true;
-    } catch (error) {
+    } catch (error : any) {
+      console.error('Error during token validation:', error.response?.data || error.message);
       throw new UnauthorizedException();
     }
   }
