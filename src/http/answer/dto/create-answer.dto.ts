@@ -1,8 +1,15 @@
-import { IsNotEmpty, IsOptional } from 'class-validator';
-export class CreateAnswerDto {
-    @IsNotEmpty()
-    name?: string;
+import { IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
+import { SectionAnswerDto } from './section-answer.dto';
 
-    @IsOptional()
-    descripcion?: string;
+export class CreateAnswerDto {
+  @IsNotEmpty()
+  idUser?: string;
+
+  @IsNotEmpty()
+  idQuestionnaire?: string;
+
+  @ValidateNested({ each: true })
+  @Type(() => SectionAnswerDto)
+  sections?: SectionAnswerDto[];
 }

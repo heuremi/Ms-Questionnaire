@@ -27,6 +27,7 @@ export class QuestionnaireService {
   }
   
   async findOne(id: string): Promise<Questionnaire | null> {
+    console.log(id);
     return await this.questionnaireModel.findById(id).exec();
   }
 

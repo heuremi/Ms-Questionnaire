@@ -7,9 +7,9 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
    app.enableCors({
-    origin: 'http://localhost:8081', // Permitir el frontend (ajusta el puerto según lo que necesites)
+    origin: 'http://localhost:8081',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true, // Permitir enviar cookies o credenciales
+    credentials: true,
   });
   
   await app.listen(process?.env?.APP_PORT || 3003);

@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
+import { HttpModule } from '@nestjs/axios';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Answer, AnswerSchema } from 'src/schemas/answer.schema';
 import { AnswerService } from './answer.service';
 import { AnswerController } from './answer.controller';
-import { Answer, AnswerSchema } from 'src/schemas/answer.schema';
-import { MongooseModule } from '@nestjs/mongoose';
-import { HttpModule } from '@nestjs/axios';
-import { AuthGuard } from '../guards/auth.guard';
 
 @Module({
   imports: [
@@ -12,6 +11,6 @@ import { AuthGuard } from '../guards/auth.guard';
     HttpModule,
   ],
   controllers: [AnswerController],
-  providers: [AnswerService, AuthGuard],
+  providers: [AnswerService],
 })
 export class AnswerModule {}
