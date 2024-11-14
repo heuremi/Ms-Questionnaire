@@ -16,6 +16,8 @@ export class AnswerController {
 
   @Post()
   async create(@Body() createAnswerDto: CreateAnswerDto) {
+    console.log('Payload recibido:', createAnswerDto);
+
     // Verificación de campos obligatorios
     if (!createAnswerDto.idUser) {
       throw new BadRequestException('El campo idUser es obligatorio');
@@ -54,15 +56,13 @@ export class AnswerController {
     return answer;
   }
 
-  @Get('/user/:idUser/questionnaire/:idQuestionnaire')
-  async findByUserAndQuestionnaire(
+  @Get('/check-response/:idUser/:idQuestionnaire')
+  async checkResponse(
     @Param('idUser') idUser: string,
     @Param('idQuestionnaire') idQuestionnaire: string
-  ) {
-    const answer = await this.answerService.findAnswerByQuestionnaireAndUser(idUser, idQuestionnaire);
-    if (!answer) {
-      throw new NotFoundException(`No se encontró una respuesta para el usuario con ID: ${idUser} y el cuestionario con ID: ${idQuestionnaire}`);
-    }
-    return answer;
+  ): Promise<{ exists: boolean }> {
+    const existingAnswer = await this.answerService.findAnswerByQuestionnaireAndUser(idUser, idQuestionnaire);
+    return { exists: !!existingAnswer };
   }
+
 }

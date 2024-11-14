@@ -13,8 +13,8 @@ export class Question {
   @Prop()
   observations?: string;
 
-  @Prop({ type: [AlternativeSchema], default: [] })
-  alternatives?: Alternative[];
+  @Prop({ required: true })
+  selectedAnswer?: string;
 }
 
 export const QuestionSchema = SchemaFactory.createForClass(Question);
