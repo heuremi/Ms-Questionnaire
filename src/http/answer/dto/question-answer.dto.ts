@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { InputAnswerAnswerDto } from './input-answer-answer.dto';
 
 export class QuestionAnswerDto {
 
@@ -12,9 +13,12 @@ export class QuestionAnswerDto {
 
   @IsOptional()
   @IsString()
-  selectedAnswer?: string;
+  observations?: string;
 
   @IsOptional()
   @IsString()
-  observations?: string;
+  selectedAnswer?: string;
+
+  @IsOptional()
+  inputAnswer?: InputAnswerAnswerDto;
 }
