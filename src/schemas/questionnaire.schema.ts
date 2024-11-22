@@ -7,6 +7,9 @@ export class Questionnaire extends Document {
   @Prop({ type: String, required: true })
   name?: string;
 
+  @Prop({ type: String, required: true, unique: true })
+  licencePlate?: string;
+  
   @Prop({ type: [SectionSchema], default: [] })
   sections?: Section[];
 }

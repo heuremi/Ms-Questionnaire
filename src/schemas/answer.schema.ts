@@ -1,6 +1,14 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { Section, SectionSchema } from './section.schema';
+import { AnswerQuestion } from './answer-question.schema';
+
+class AnswerSection {
+  @Prop({ type: String, required: true })
+  title?: string;
+
+  @Prop({ type: [AnswerQuestion], required: true })
+  questions?: AnswerQuestion[];
+}
 
 @Schema()
 export class Answer extends Document {
@@ -10,11 +18,14 @@ export class Answer extends Document {
   @Prop({ required: true })
   idQuestionnaire?: string;
 
-  @Prop({ type: [SectionSchema], default: [] })
-  sections?: Section[];
+  @Prop({ required: true })
+  licencePlate?: string;
 
-  @Prop({ default: Date.now })
-  createdAt?: Date;
+  @Prop({ type: [AnswerSection], required: true })
+  sections?: AnswerSection[];
+
+  @Prop({ type: String, required: false })
+  imageBase64?: string;
 }
 
 export const AnswerSchema = SchemaFactory.createForClass(Answer);

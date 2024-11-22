@@ -7,6 +7,10 @@ export class CreateQuestionnaireDto {
   @IsString()
   name?: string;
 
+  @IsNotEmpty()
+  @IsString()
+  licencePlate?: string; 
+  
   @ValidateNested({ each: true })
   @Type(() => SectionDto)
   sections?: SectionDto[];

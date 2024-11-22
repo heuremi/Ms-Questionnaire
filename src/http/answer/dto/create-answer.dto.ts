@@ -9,7 +9,16 @@ export class CreateAnswerDto {
   @IsNotEmpty()
   idQuestionnaire?: string;
 
+  @IsNotEmpty()
+  @IsString()
+  licencePlate?: string;
+
   @ValidateNested({ each: true })
   @Type(() => SectionAnswerDto)
   sections?: SectionAnswerDto[];
+  
+  @IsOptional()
+  @IsString()
+  imageBase64?: string;
+
 }
