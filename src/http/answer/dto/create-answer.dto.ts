@@ -1,6 +1,7 @@
 import { IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 import { SectionAnswerDto } from './section-answer.dto';
+import { CoordsDto } from './coords.dto';
 
 export class CreateAnswerDto {
   @IsNotEmpty()
@@ -20,5 +21,9 @@ export class CreateAnswerDto {
   @IsOptional()
   @IsString()
   imageBase64?: string;
+
+  @IsNotEmpty()
+  @Type(() => CoordsDto)
+  coords?: CoordsDto
 
 }

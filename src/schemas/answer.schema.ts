@@ -1,6 +1,7 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { AnswerQuestion } from './answer-question.schema';
+import { Coords } from './coords.schema';
 
 class AnswerSection {
   @Prop({ type: String, required: true })
@@ -26,6 +27,9 @@ export class Answer extends Document {
 
   @Prop({ type: String, required: false })
   imageBase64?: string;
+
+  @Prop({ type: Coords, required: true})
+  coords?: Coords;
 }
 
 export const AnswerSchema = SchemaFactory.createForClass(Answer);
