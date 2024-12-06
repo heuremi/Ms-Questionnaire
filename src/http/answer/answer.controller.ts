@@ -65,4 +65,13 @@ export class AnswerController {
     return { exists: !!existingAnswer };
   }
 
+  @Get('/show-response/:idUser/:idQuestionnaire')
+  async showResponse(
+    @Param('idUser') idUser: string,
+    @Param('idQuestionnaire') idQuestionnaire: string
+  ) {
+    const answer = await this.answerService.findAnswerByQuestionnaireAndUser(idUser, idQuestionnaire);
+    return answer;
+  }
+
 }

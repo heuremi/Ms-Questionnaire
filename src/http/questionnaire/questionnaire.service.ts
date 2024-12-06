@@ -31,6 +31,10 @@ export class QuestionnaireService {
     return await this.questionnaireModel.findById(id).exec();
   }
 
+  async findByMachine(licencePlate: string) {
+    return this.questionnaireModel.find({ licencePlate }).exec();
+  }
+
   async update(id: string, updateQuestionnaireDto: UpdateQuestionnaireDto): Promise<UpdateResult> {
     try {
       return await this.questionnaireModel.updateOne({ _id: id }, updateQuestionnaireDto);

@@ -34,6 +34,11 @@ export class QuestionnaireController {
     return this.questionnaireService.findOne(id);
   }
 
+  @Get('/machine/:licencePlate')
+  async findByMachine(@Param('licencePlate') licencePlate: string) {
+    return this.questionnaireService.findByMachine(licencePlate);
+  }
+
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateQuestionnaireDto: UpdateQuestionnaireDto) {
     try {
