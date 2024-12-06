@@ -44,4 +44,14 @@ export class AnswerService {
   async findAnswerByQuestionnaireAndUser(idUser: string, idQuestionnaire: string): Promise<Answer | null> {
     return this.answerModel.findOne({ idUser, idQuestionnaire }).exec();
   }
+
+  async findAnswerByUser(idUser: string): Promise<Answer[]> {
+    const answers = await this.answerModel.find({ idUser }).exec();
+
+    if (!answers || answers.length === 0) {
+      throw new NotFoundException('No se encontraron respuestas para este usuario.');
+    }
+
+    return answers;
+  }
 }

@@ -56,6 +56,11 @@ export class AnswerController {
     return answer;
   }
 
+  @Get('/user/:idUser')
+  async findAnswerByUser(@Param('idUser') idUser: string) {
+    return this.answerService.findAnswerByUser(idUser);
+  }
+
   @Get('/check-response/:idUser/:idQuestionnaire')
   async checkResponse(
     @Param('idUser') idUser: string,
